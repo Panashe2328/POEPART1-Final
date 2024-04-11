@@ -22,12 +22,15 @@ namespace CookBook
 
         public void Details()
         {
+           
             Console.WriteLine("Enter the name of the Recipe: ");
+            
             recipeName = Console.ReadLine();
+
 
             Console.WriteLine("Enter the number of the ingredients:");
             numIngredients = Convert.ToInt32(Console.ReadLine());
-
+            
             ingrNames = new string[numIngredients];
             ingrQuantities = new double[numIngredients];
             ingrUnits = new string[numIngredients];
@@ -188,8 +191,10 @@ namespace CookBook
 
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             RecipeIngredients myRecipe = new RecipeIngredients();
             myRecipe.Menu();
+            Console.ResetColor();
         }
     }
 }
