@@ -118,10 +118,22 @@ namespace CookBook
         }
             public void ClearData()
             {
-
-                for (int i = 0; i < ingrNames.Length; i++)
+                if (Menu == ClearData)
                 {
-                    Array.Clear(ingrNames);
+                // Clearing all recipe data
+                numIngredients = 0;
+                numSteps = 0;
+                ingrNames = null;
+                ingrQuantities = null;
+                ingrUnits = null;
+                steps = null;
+                recipeName = null;
+                Console.WriteLine("Data has been cleared");
+                 
+                }
+               else
+               {
+                Console.WriteLine("No data has been cleared");
                 }
             }
         
