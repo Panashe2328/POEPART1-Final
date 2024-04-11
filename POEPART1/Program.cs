@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
+
 namespace CookBook
 {
-
     class RecipeIngredients
     {
-
         private int numIngredients;
         private string[] ingrNames;
         private double[] ingrQuantities;
@@ -17,24 +11,22 @@ namespace CookBook
         private int numSteps;
         private string[] steps;
         private string recipeName;
+        private string lastAction;
 
         public RecipeIngredients()
         {
             numIngredients = 0;
             numSteps = 0;
+            lastAction = "";
         }
 
         public void Details()
         {
-            //Get the name of the recipe 
             Console.WriteLine("Enter the name of the Recipe: ");
             recipeName = Console.ReadLine();
 
-            // get information on the ingredients 
-            //initialize array to store info
             Console.WriteLine("Enter the number of the ingredients:");
             numIngredients = Convert.ToInt32(Console.ReadLine());
-
 
             ingrNames = new string[numIngredients];
             ingrQuantities = new double[numIngredients];
@@ -42,7 +34,6 @@ namespace CookBook
 
             for (int i = 0; i < numIngredients; i++)
             {
-
                 Console.Write($"Enter ingredient {i + 1} name: ");
                 ingrNames[i] = Console.ReadLine();
 
@@ -52,46 +43,44 @@ namespace CookBook
                 Console.Write($"Enter ingredient {i + 1} unit: ");
                 ingrUnits[i] = Console.ReadLine();
             }
-            //getting the recipe steps 
+
             Console.WriteLine("Enter the number of steps:");
             numSteps = Convert.ToInt32(Console.ReadLine());
 
             steps = new string[numSteps];
 
             for (int i = 0; i < numSteps; i++)
-
             {
-                Console.WriteLine(($"Enter step{i + 1}: "));
+                Console.WriteLine($"Enter step {i + 1}: ");
                 steps[i] = Console.ReadLine();
             }
 
+            lastAction = "Details";
         }
+
         public void Display()
         {
-            if (Menu == Display)
+            Console.WriteLine("The full Recipe is as follows:");
+
+            for (int i = 0; i < ingrNames.Length; i++)
             {
-                Console.WriteLine("The full Recipe is as follows:");
+                Console.WriteLine($"{ingrQuantities[i]}  {ingrUnits[i]} {ingrNames[i]}");
+            }
 
-                for (int i = 0; i < ingrNames.Length; i++)
-                {
-                    Console.WriteLine($"{ingrQuantities[i]}  {ingrUnits[i]} {ingrNames[i]}");
-                }
+            Console.WriteLine();
 
-                Console.WriteLine();
-
-                for (int i = 0; i < steps.Length; i++)
-                {
-                    Console.WriteLine($"Step {i + 1}: {steps[i]}");
-                }
+            for (int i = 0; i < steps.Length; i++)
+            {
+                Console.WriteLine($"Step {i + 1}: {steps[i]}");
             }
         }
 
         public void Scale()
         {
             Console.WriteLine("Would you like to scale the quantity (True/False): ");
-            bool ScaleFactor = bool.Parse(Console.ReadLine());
+            bool scaleFactor = bool.Parse(Console.ReadLine());
 
-            if (ScaleFactor)
+            if (scaleFactor)
             {
                 Console.Write("Enter a scaling factor (0.5, 2, or 3): ");
                 double scalingFactor = double.Parse(Console.ReadLine());
@@ -108,130 +97,99 @@ namespace CookBook
                 Console.WriteLine("The scaling factor for the quantity has not been changed");
             }
 
+            lastAction = "Scale";
         }
+
         public void Reset()
         {
-            if (Menu == Reset)
+            for (int i = 0; i < numIngredients; i++)
             {
-                //Reset method
-                for (int i = 0; i < numIngredients; i++)
-                {
-                    ingrQuantities[i] /= 2;
-                    // message to tell user data has been reset
-                    Console.WriteLine("Reset is successful");
-                }
+                ingrQuantities[i] /= 2;
             }
 
+            Console.WriteLine("Reset is successful");
+
+            lastAction = "Reset";
         }
+
         public void ClearData()
         {
-            if (Menu == ClearData)
+            Console.WriteLine("Are you sure you want to clear recipe data? (Y/N)");
+            string choice = Console.ReadLine();
+
+            if (choice.ToUpper() == "Y")
             {
-                Console.WriteLine("Are you sure you want to clear recipe data? (Y/N)");
-                string choice = Console.ReadLine();
+                numIngredients = 0;
+                numSteps = 0;
+                ingrNames = null;
+                ingrQuantities = null;
+                ingrUnits = null;
+                steps = null;
+                recipeName = null;
 
-                if (choice.ToUpper() == "Y")
-                {
-                    // Clearing all recipe data
-                    numIngredients = 0;
-                    numSteps = 0;
-                    ingrNames = null;
-                    ingrQuantities = null;
-                    ingrUnits = null;
-                    steps = null;
-                    recipeName = null;
-
-                    Console.WriteLine("Data has been cleared");
-                }
-                else
-                {
-                    Console.WriteLine("No data has been cleared");
-                }
+                Console.WriteLine("Data has been cleared");
             }
-         }
-       
-        
+            else
+            {
+                Console.WriteLine("No data has been cleared");
+            }
+
+            lastAction = "ClearData";
+        }
+
         public void Menu()
+        {
+            RecipeIngredients myRecipe = new RecipeIngredients();
+            while (true)
             {
-                RecipeIngredients myRecipe = new RecipeIngredients();
-                while (true)
+                Console.WriteLine("Select an option:");
+                Console.WriteLine("1. Enter recipe details");
+                Console.WriteLine("2. Display recipe");
+                Console.WriteLine("3. Scale recipe");
+                Console.WriteLine("4. Reset recipe");
+                Console.WriteLine("5. Clear recipe data");
+                Console.WriteLine("6. Quit");
+
+                string input = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (input)
                 {
-                    Console.WriteLine("Select an option:");
-                    Console.WriteLine("1. Enter recipe details");
-                    Console.WriteLine("2. Display recipe");
-                    Console.WriteLine("3. Scale recipe");
-                    Console.WriteLine("4. Reset recipe");
-                    Console.WriteLine("5. Clear recipe data");
-                    Console.WriteLine("6. Quit");
+                    case "1":
+                        myRecipe.Details();
+                        break;
 
-                    string input = Console.ReadLine();
-                    Console.WriteLine();
+                    case "2":
+                        myRecipe.Display();
+                        break;
 
-                    switch (input)
-                    {
-                        case "1":
-                            myRecipe.Details();
-                            break;
+                    case "3":
+                        myRecipe.Scale();
+                        break;
 
-                        case "2":
-                            myRecipe.Display();
-                            break;
+                    case "4":
+                        myRecipe.Reset();
+                        break;
 
-                        case "3":
-                            myRecipe.Scale();
-                            break;
+                    case "5":
+                        myRecipe.ClearData();
+                        break;
 
-                        case "4":
-                            myRecipe.Reset(); 
-                            break;
+                    case "6":
+                        Environment.Exit(0);
+                        break;
 
-                        case "5":
-                            myRecipe.ClearData();
-                             break;
-
-                        case "6":
-                            Environment.Exit(0);
-                            break;
-
-                        default:
-                            Console.WriteLine("Invalid option. Please try again.");
-                            break;
-
-                    }
-
-
-
-
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
                 }
-
-
             }
+        }
 
-
-            static void Main(string[] args)
-            {
-
-                RecipeIngredients myRecipe = new RecipeIngredients();
-                myRecipe.Details();
-                myRecipe.Display();
-                myRecipe.Scale();
-                myRecipe.Reset();
-                myRecipe.ClearData();
-                myRecipe.Menu();
-
-                //
-
-
-
-            }
-        
+        static void Main(string[] args)
+        {
+            RecipeIngredients myRecipe = new RecipeIngredients();
+            myRecipe.Menu();
+        }
     }
 }
-
-
-
-
-
-
-
-
