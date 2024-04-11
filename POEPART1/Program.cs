@@ -22,7 +22,7 @@ namespace CookBook
 
         public void Details()
         {
-           
+           Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Enter the name of the Recipe: ");
             
             recipeName = Console.ReadLine();
@@ -59,6 +59,7 @@ namespace CookBook
             }
 
             lastAction = "Details";
+            
         }
 
         public void Display()
