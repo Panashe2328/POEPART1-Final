@@ -112,6 +112,7 @@ namespace CookBook
             {
                 ingrQuantities[i] /= 2;
                 // message to tell user data has been reset
+                Console.WriteLine("Reset is successful");
             }
 
         }
