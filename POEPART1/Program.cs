@@ -72,7 +72,7 @@ namespace CookBook
 
             Console.WriteLine();
 
-            for (int i = 0; i < steps.Length; i++)
+            for (int i = 0; i < steps.Length; i++)//starts another loop that iterates over each step in the recipe.
             {
                 Console.WriteLine($"Step {i + 1}: {steps[i]}");
             }
