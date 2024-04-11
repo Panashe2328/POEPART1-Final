@@ -107,93 +107,99 @@ namespace CookBook
         }
         public void Reset()
         {
-           //Reset method
-        }
-        public void ClearData()
-        {
-
-            for (int i = 0; i < ingrNames.Length; i++)
+            //Reset method
+            for (int i = 0; i < numIngredients; i++)
             {
-                Array.Clear(ingrNames);
+                ingrQuantities[i] /= 2;
+                // message to tell user data has been reset
             }
+
         }
-
-        public void Menu()
-        {
-            RecipeIngredients myRecipe = new RecipeIngredients();
-            while (true)
+            public void ClearData()
             {
-                Console.WriteLine("Select an option:");
-                Console.WriteLine("1. Enter recipe details");
-                Console.WriteLine("2. Display recipe");
-                Console.WriteLine("3. Scale recipe");
-                Console.WriteLine("4. Reset recipe");
-                Console.WriteLine("5. Clear recipe data");
-                Console.WriteLine("6. Quit");
 
-                string input = Console.ReadLine();
-                Console.WriteLine();
-
-                switch (input)
+                for (int i = 0; i < ingrNames.Length; i++)
                 {
-                    case "1":
-                        myRecipe.Details();
-                        break;
+                    Array.Clear(ingrNames);
+                }
+            }
+        
+            public void Menu()
+            {
+                RecipeIngredients myRecipe = new RecipeIngredients();
+                while (true)
+                {
+                    Console.WriteLine("Select an option:");
+                    Console.WriteLine("1. Enter recipe details");
+                    Console.WriteLine("2. Display recipe");
+                    Console.WriteLine("3. Scale recipe");
+                    Console.WriteLine("4. Reset recipe");
+                    Console.WriteLine("5. Clear recipe data");
+                    Console.WriteLine("6. Quit");
 
-                    case "2":
-                        myRecipe.Display();
-                        break;
+                    string input = Console.ReadLine();
+                    Console.WriteLine();
 
-                    case "3":
-                        myRecipe.Scale();
-                        break;
+                    switch (input)
+                    {
+                        case "1":
+                            myRecipe.Details();
+                            break;
 
-                    case "4":
-                        myRecipe.Reset();
-                        break;
+                        case "2":
+                            myRecipe.Display();
+                            break;
 
-                    case "5":
-                        myRecipe.ClearData();
-                        break;
+                        case "3":
+                            myRecipe.Scale();
+                            break;
 
-                    case "6":
-                        Environment.Exit(0);
-                        break;
+                        case "4":
+                            myRecipe.Reset();
+                            break;
 
-                    default:
-                        Console.WriteLine("Invalid option. Please try again.");
-                        break;
+                        case "5":
+                            myRecipe.ClearData();
+                            break;
+
+                        case "6":
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid option. Please try again.");
+                            break;
+
+                    }
+
+
+
 
                 }
 
 
-
-
             }
 
 
-        }
+            static void Main(string[] args)
+            {
+
+                RecipeIngredients myRecipe = new RecipeIngredients();
+                myRecipe.Details();
+                myRecipe.Display();
+                myRecipe.Scale();
+                myRecipe.Reset();
+                myRecipe.ClearData();
+                myRecipe.Menu();
+
+                //
 
 
-        static void Main(string[] args)
-        {
-            
-            RecipeIngredients myRecipe = new RecipeIngredients();
-            myRecipe.Details();
-            myRecipe.Display();
-            myRecipe.Scale();
-            myRecipe.Reset();
-            myRecipe.ClearData();
-            myRecipe.Menu();
 
-            //
-
-            
-
-        }
+            }
+        
     }
 }
-
 
 
 
