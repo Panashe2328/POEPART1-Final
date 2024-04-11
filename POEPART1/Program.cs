@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 namespace CookBook
 {
 
@@ -67,18 +68,21 @@ namespace CookBook
         }
         public void Display()
         {
-            Console.WriteLine("The full Recipe is as follows:");
-
-            for (int i = 0; i < ingrNames.Length; i++)
+            if (Menu == Display)
             {
-                Console.WriteLine($"{ingrQuantities[i]}  {ingrUnits[i]} {ingrNames[i]}");
-            }
+                Console.WriteLine("The full Recipe is as follows:");
 
-            Console.WriteLine();
+                for (int i = 0; i < ingrNames.Length; i++)
+                {
+                    Console.WriteLine($"{ingrQuantities[i]}  {ingrUnits[i]} {ingrNames[i]}");
+                }
 
-            for (int i = 0; i < steps.Length; i++)
-            {
-                Console.WriteLine($"Step {i + 1}: {steps[i]}");
+                Console.WriteLine();
+
+                for (int i = 0; i < steps.Length; i++)
+                {
+                    Console.WriteLine($"Step {i + 1}: {steps[i]}");
+                }
             }
         }
 
@@ -107,15 +111,44 @@ namespace CookBook
         }
         public void Reset()
         {
-            //Reset method
-            for (int i = 0; i < numIngredients; i++)
+            if (Menu == Reset)
             {
-                ingrQuantities[i] /= 2;
-               // message to tell user data has been reset
-                Console.WriteLine("Reset is successful");
+                //Reset method
+                for (int i = 0; i < numIngredients; i++)
+                {
+                    ingrQuantities[i] /= 2;
+                    // message to tell user data has been reset
+                    Console.WriteLine("Reset is successful");
+                }
             }
 
         }
+        public void ClearData()
+        {
+            if (Menu == ClearData)
+            {
+                Console.WriteLine("Are you sure you want to clear recipe data? (Y/N)");
+                string choice = Console.ReadLine();
+
+                if (choice.ToUpper() == "Y")
+                {
+                    // Clearing all recipe data
+                    numIngredients = 0;
+                    numSteps = 0;
+                    ingrNames = null;
+                    ingrQuantities = null;
+                    ingrUnits = null;
+                    steps = null;
+                    recipeName = null;
+
+                    Console.WriteLine("Data has been cleared");
+                }
+                else
+                {
+                    Console.WriteLine("No data has been cleared");
+                }
+            }
+         }
        
         
         public void Menu()
@@ -149,44 +182,12 @@ namespace CookBook
                             break;
 
                         case "4":
-                        myRecipe.Reset(); 
-                        {
-                            //Reset method
-                            for (int i = 0; i < numIngredients; i++)
-                            {
-                                ingrQuantities[i] /= 2;
-                                // message to tell user data has been reset
-                                Console.WriteLine("Reset is successful");
-                            }
-                        }
+                            myRecipe.Reset(); 
                             break;
 
                         case "5":
                             myRecipe.ClearData();
-                        {
-
-                            Console.WriteLine("Are you sure you want to clear recipe data? (Y/N)");
-                            string choice = Console.ReadLine();
-
-                            if (choice.ToUpper() == "Y")
-                            {
-                                // Clearing all recipe data
-                                numIngredients = 0;
-                                numSteps = 0;
-                                ingrNames = null;
-                                ingrQuantities = null;
-                                ingrUnits = null;
-                                steps = null;
-                                recipeName = null;
-
-                                Console.WriteLine("Data has been cleared");
-                            }
-                            else
-                            {
-                                Console.WriteLine("No data has been cleared");
-                            }
-                        }
-                            break;
+                             break;
 
                         case "6":
                             Environment.Exit(0);
