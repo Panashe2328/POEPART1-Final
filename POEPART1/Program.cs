@@ -181,7 +181,7 @@ namespace CookBook
                     case "6":
                         Environment.Exit(0);
                         break;
-
+                        
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
                         break;
