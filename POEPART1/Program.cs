@@ -111,15 +111,18 @@ namespace CookBook
             for (int i = 0; i < numIngredients; i++)
             {
                 ingrQuantities[i] /= 2;
-                // message to tell user data has been reset
+               // message to tell user data has been reset
                 Console.WriteLine("Reset is successful");
             }
 
         }
-            public void ClearData()
+        public void ClearData()
+        {
+            Console.WriteLine("Are you sure you want to clear recipe data? (Y/N)");
+            string choice = Console.ReadLine();
+
+            if (choice.ToUpper() == "Y")
             {
-                if (Menu == ClearData)
-                {
                 // Clearing all recipe data
                 numIngredients = 0;
                 numSteps = 0;
@@ -128,16 +131,16 @@ namespace CookBook
                 ingrUnits = null;
                 steps = null;
                 recipeName = null;
+
                 Console.WriteLine("Data has been cleared");
-                 
-                }
-               else
-               {
-                Console.WriteLine("No data has been cleared");
-                }
             }
+            else
+            {
+                Console.WriteLine("No data has been cleared");
+            }
+        }
         
-            public void Menu()
+        public void Menu()
             {
                 RecipeIngredients myRecipe = new RecipeIngredients();
                 while (true)
@@ -168,7 +171,20 @@ namespace CookBook
                             break;
 
                         case "4":
-                            myRecipe.Reset();
+                        myRecipe.Reset() 
+                        {
+                            public void Reset()
+                            {
+                                //Reset method
+                                for (int i = 0; i < numIngredients; i++)
+                                {
+                                    ingrQuantities[i] /= 2;
+                                    // message to tell user data has been reset
+                                    Console.WriteLine("Reset is successful");
+                                }
+
+                            }
+                        }
                             break;
 
                         case "5":
